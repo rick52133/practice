@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+
+    </style>
+</head>
+
+<body>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script>
+        let acount = {
+            email: 'xxx23rickf@hexschool.com',
+            password: '1234',
+        }
+        // let xhr = new XMLHttpRequest()
+        // xhr.open('post', 'https://hexschool-tutorial.herokuapp.com/api/signup', true)
+        // xhr.onload = function () {
+        //     console.log(xhr.responseText)
+        // }
+        // xhr.setRequestHeader('Content-type', 'application/json')
+        // let data = JSON.stringify(acount)
+        // xhr.send(data)
+
+        let data = JSON.stringify(acount)
+        const instance = axios.create({
+            // baseURL: 'https://api.kcg.gov.tw',
+            // timeout: 5,
+            headers: { 'Content-Type': 'application/json' }
+        })
+
+        instance.post('https://hexschool-tutorial.herokuapp.com/api/signup', data)
+            .then(res => console.log(res.data))
+
+        var student = {
+            name: 'kanboo',
+            age: 16,
+            locate: {
+                country: 'tw',
+                city: 'taipei',
+                school: 'CCC'
+            }
+        }
+        console.log(Object.keys(student))
+        for (var key of Object.keys(student)) {
+            //使用Object.keys()方法取得物件的Key的陣列
+            console.log(key + ": " + student[key]);
+        }
+
+        // var s2 = 3
+        // function Timer() {
+        //     this.s1 = 0;
+        //     this.s2 = 0;
+        //     // 箭头函数
+        //     setInterval(() => {
+        //         this.s1++, 1000
+        //     });
+        //     // 普通函数
+        //     setInterval(function () {
+        //         this.s2++;
+        //     }, 1000);
+        // }
+
+        // var timer = new Timer();
+
+        // setTimeout(() => console.log('s1: ', timer.s1), 3100);
+        // setTimeout(() => console.log('s2: ', timer.s2), 3100)
+
+        function get(url) {
+            return new Promise((resolve, reject) => {
+                // 定義 Http request
+                var req = new XMLHttpRequest();
+                req.open('GET', url);
+                req.onload = function () {
+                    if (req.status == 200) {
+                        // 使用 resolve 回傳成功的結果，也可以在此直接轉換成 JSON 格式
+                        resolve(JSON.parse(req.response));
+                    } else {
+                        // 使用 reject 自訂失敗的結果
+                        reject(new Error(req))
+                    }
+                };
+                req.send();
+            });
+        }
+
+        // 往後的 HTTP 直接就能透過 get 函式取得
+        get('https://jsonplaceholder.typicode.com/todos/1')
+            .then((res) => {
+                console.log(res);
+            })
+            .catch((res) => {
+                console.error(res)
+            })
+
+        function timeout(ms) {
+            return new Promise((resolve, reject) => {
+                setTimeout(resolve, ms, 'done');
+            });
+        }
+
+        timeout().then((value) => {
+            console.log(value);
+        });
+
+
+        class Point {
+            constructor(x, y) {
+                this.x = x;
+                this.y = y;
+            }
+
+            toString() {
+                return '(' + this.x + ', ' + this.y + ')';
+            }
+        }
+
+        class MyClass {
+            constructor() {
+                // ...
+            }
+            get prop() {
+                return 'getter';
+            }
+            set prop(value) {
+                console.log('setter: ' + value);
+            }
+        }
+
+        let inst = new MyClass();
+
+        inst.prop = 123;
+        // setter: 123
+
+
+        console.log(inst.prop)
+         // 'getter'
+
+
+    </script>
+</body>
+
+</html>
